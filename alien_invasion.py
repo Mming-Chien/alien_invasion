@@ -69,6 +69,8 @@ class AlienInvasion:
 		button_clicked = self.play_button.rect.collidepoint(mouse_pos)
 		if button_clicked and not self.stats.game_active:
 			self._start_game()
+			# Reset the game settings
+			self.settings.initialize_dynamic_settings()
 
 
 	def _check_keydown_events(self, event):
@@ -135,13 +137,15 @@ class AlienInvasion:
 		"""Response to bullet-alien collisions"""
 		# Check if any bullets that have hit the alien.
 			#if so get rid of the bullet and alien though "True,True"
-		collisions = pygame.sprite.groupcollide(self.bullets, self.aliens, True , True)
+		collisions = pygame.sprite.groupcollide(self.bullets, self.aliens, False , True)
 
 		# Make new fleet if no alien left.
 		if not self.aliens:
 			# Destroy existing bullets and create new fleet.
 			self.bullets.empty()
 			self._create_fleet()
+			# Speed up game tempo
+			self.settings.increase_speed()
 
 
 	def _update_aliens(self):
