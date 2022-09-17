@@ -1,10 +1,11 @@
 import pygame.font
+from pygame.sprite import Sprite
 
-
-class Button:
+class Button(Sprite):
 
 	def __init__(self,ai_game, msg):
 		"""Initialize the button"""
+		super().__init__()
 		self.screen = ai_game.screen
 		self.screen_rect = self.screen.get_rect()
 
@@ -17,6 +18,9 @@ class Button:
 		# Buld the button's rect and center it
 		self.rect = pygame.Rect(0,0, self.width, self.height)
 		self.rect.center = self.screen_rect.center
+
+		# Identify numbers
+		self.button_number = 1
 
 		#The button message needs to be prepped only once 
 		self._prep_msg(msg)
