@@ -77,9 +77,7 @@ class AlienInvasion:
 			button_clicked = button.rect.collidepoint(mouse_pos)
 			if button_clicked and not self.stats.game_active:
 				self._start_game()
-				self.sb.prep_score()
-				self.sb.prep_level()
-				self.sb.prep_ships()
+				self.sb.prep_images()
 				# Reset the game settings
 				if button.button_number == 1:				
 					self.settings.initialize_dynamic_settings1()
@@ -87,6 +85,10 @@ class AlienInvasion:
 					self.settings.initialize_dynamic_settings2()
 				elif button.button_number == 3:				
 					self.settings.initialize_dynamic_settings3()
+				elif button.button_number == 4:
+					#exit game:
+					self._write_high_score()
+					sys.exit()
 
 
 
@@ -162,7 +164,7 @@ class AlienInvasion:
 		"""Response to bullet-alien collisions"""
 		# Check if any bullets that have hit the alien.
 			#if so get rid of the bullet and alien though "True,True"
-		collisions = pygame.sprite.groupcollide(self.bullets, self.aliens, False , True)
+		collisions = pygame.sprite.groupcollide(self.bullets, self.aliens, True , True)
 
 		if collisions:
 			for aliens in collisions.values():
@@ -172,15 +174,19 @@ class AlienInvasion:
 
 		# Make new fleet if no alien left.
 		if not self.aliens:
-			# Destroy existing bullets and create new fleet.
-			self.bullets.empty()
-			self._create_fleet()
-			# Speed up game tempo
-			self.settings.increase_speed()
+			self.start_new_level()
 
-			# Increase level
-			self.stats.level += 1
-			self.sb.prep_level()
+	def start_new_level(self):
+		""" Start a new level when fleet be destroyed"""
+		# Destroy existing bullets and create new fleet.
+		self.bullets.empty()
+		self._create_fleet()
+		# Speed up game tempo
+		self.settings.increase_speed()
+
+		# Increase level
+		self.stats.level += 1
+		self.sb.prep_level()
 
 
 	def _update_aliens(self):
@@ -217,6 +223,8 @@ class AlienInvasion:
 		for row_number in range(number_rows):
 			for alien_number in range(number_alien_x):
 				self._creat_alien(alien_number, row_number)
+
+
 			
 	def _creat_alien(self,alien_number, row_number):
 		"""Create and place an alien based on its number in a row"""
@@ -307,6 +315,12 @@ class AlienInvasion:
 		button_3.msg_image_rect.y = button_2.msg_image_rect.y +70
 		button_3.button_number = 3
 		self.buttons.add(button_3)
+
+		button_4 = Button(self, "Exit (thoát)")
+		button_4.rect.y = button_3.rect.y + 70
+		button_4.msg_image_rect.y = button_3.msg_image_rect.y +70
+		button_4.button_number = 4
+		self.buttons.add(button_4)
 
 	def _read_high_score(self):
 		"""Read high score from file"""

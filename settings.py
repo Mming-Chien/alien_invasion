@@ -14,10 +14,10 @@ class Settings:
 
 		# Bullet settings
 		
-		self.bullet_width = 3000
+		self.bullet_width = 3
 		self.bullet_height = 15
 		self.bullet_color = (60,60,60)
-		self.bullets_allowed = 1
+		self.bullets_allowed =3
 
 		# Alien settings
 		
@@ -34,9 +34,9 @@ class Settings:
 
 	def initialize_dynamic_settings1(self):
 		"""Initialize settings that can change throughout the game"""
-		self.ship_speed = 1.5
-		self.bullet_speed = 1
-		self.alien_speed = 2
+		self.ship_speed = 1.6
+		self.bullet_speed = 1.3
+		self.alien_speed = 1.2
 		self.alien_points = 50
 
 		# fleet_direction  of 1 represents right; -1 represents left
@@ -44,9 +44,9 @@ class Settings:
 
 	def initialize_dynamic_settings2(self):
 		"""Initialize settings that can change throughout the game"""
-		self.ship_speed = 1.5
-		self.bullet_speed = 1
-		self.alien_speed = 3
+		self.ship_speed = 2.5
+		self.bullet_speed = 1.6
+		self.alien_speed = 2.1
 		self.alien_points = 100
 
 		# fleet_direction  of 1 represents right; -1 represents left
@@ -54,9 +54,9 @@ class Settings:
 
 	def initialize_dynamic_settings3(self):
 		"""Initialize settings that can change throughout the game"""
-		self.ship_speed = 2
-		self.bullet_speed = 1.3
-		self.alien_speed = 5
+		self.ship_speed = 3.5
+		self.bullet_speed = 2.3
+		self.alien_speed = 2.7
 		self.alien_points = 200
 
 		# fleet_direction  of 1 represents right; -1 represents left
